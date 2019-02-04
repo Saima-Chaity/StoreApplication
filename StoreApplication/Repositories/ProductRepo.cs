@@ -58,7 +58,38 @@ namespace StoreApplication.Repositories
                 return query;
             }
         }
+        public Product SaveProduct(string productName, decimal price)
+        {
+            Product newProduct = new Product();
+
+            newProduct.ProductName = productName;
+
+            newProduct.Price = price;
+
+            db.Product.Add(newProduct);
+            db.SaveChanges();
+
+            return newProduct;
+        }
+
+        public Product UpdateProduct(int productId, string productName, decimal price)
+        {
+
+            Product product = (from p in db.Product
+                               where p.ProductId == productId
+                               select p).FirstOrDefault();
 
 
+            if (product != null)
+            {
+                product.ProductName = productName;
+                product.Price = price;
+
+                db.Product.Update(product);
+                db.SaveChanges();
+            }
+
+            return product;
+        }
     }
 }

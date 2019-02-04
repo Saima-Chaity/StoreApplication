@@ -1,0 +1,39 @@
+﻿@model StoreApplication.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="jumbotron jumbotron-fluid" style="width: 80%; margin: 25px auto;">
+    <div class="row">
+        <div class="col-md-12" style="margin: 10px auto;">
+            <h2 style="text-align:center;">Product Details</h2>
+            <dl class="dl-horizontal" style="margin: 30px auto; width: 50%; font-size:20px;">
+                <dt>
+                    @Html.DisplayNameFor(model => model.ProductName) :
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ProductName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ProductImage) :
+                </dt>
+                <dd>
+                    <img src="~/images/not-found.jpg" style="max-width:100px;max-height:100px" />
+                    @*<img src="@(ViewBag.Base64String = "data:image/jpg;base64," + Convert.ToBase64String(Model.ProductImage, 0, Model.ProductImage.Length))" style="max-width:100px;max-height:100px" />*@
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Price) :
+                </dt>
+                <dd>
+                    $@Html.DisplayFor(model => model.Price)
+                </dd>
+            </dl>
+            <div style="text-align:center;">
+                <a asp-controller="Home" asp-action="Index">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
