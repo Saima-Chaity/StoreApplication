@@ -148,7 +148,7 @@ namespace StoreApplication.Areas.Identity.Pages.Account.Manage
         {
             return string.Format(
                 AuthenticatorUriFormat,
-                _urlEncoder.Encode("PassionProject"),
+                _urlEncoder.Encode("StoreApplication"),
                 _urlEncoder.Encode(email),
                 unformattedKey);
         }

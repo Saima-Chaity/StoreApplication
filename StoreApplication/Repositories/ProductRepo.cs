@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using StoreApplication.Data;
+using StoreApplication.Interfaces;
 using StoreApplication.Models;
 using StoreApplication.Services;
 using System;
@@ -9,13 +10,25 @@ using System.Threading.Tasks;
 
 namespace StoreApplication.Repositories
 {
-    public class ProductRepo
+    public class ProductRepo : IProductRepository
     {
         public StoreDBContext db;
 
         public ProductRepo(StoreDBContext db)
         {
             this.db = db;
+        }
+
+        public List<Product> ProductList()
+        {
+            var query = from p in db.Product
+                        select p;
+            return query.ToList();
+        }
+
+        public Product ProductDetails(int id)
+        {
+            return (db.Product.Where(p => p.ProductId == id).FirstOrDefault());
         }
 
         public IQueryable<Product> GetAll(string sortOrder, string searchString)
@@ -58,6 +71,7 @@ namespace StoreApplication.Repositories
                 return query;
             }
         }
+
         public Product SaveProduct(string productName, decimal price)
         {
             Product newProduct = new Product();

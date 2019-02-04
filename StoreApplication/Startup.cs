@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using StoreApplication.Data;
 using StoreApplication.Models;
+using StoreApplication.Areas.Identity.Services;
 
 namespace StoreApplication
 {
@@ -79,9 +80,9 @@ namespace StoreApplication
             var connection = Configuration.GetConnectionString("StoreConnection");
             services.AddDbContext<StoreDBContext>(options => options.UseSqlServer(connection));
 
-            //services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 
-            //services.AddTransient<IEmailSender, EmailService>();
+            services.AddTransient<IEmailSender, EmailService>();
 
             //services.AddDbContext<StoreDBContext>(options =>
             //options.UseSqlite("Data Source=.\\wwwroot\\StoreDbSqlite.db"));
