@@ -10,5 +10,8 @@ namespace StoreApplication.Interfaces
     {
         List<Product> ProductList();
         Product ProductDetails(int id);
+        Product SaveProductToSql(Product product);
+        Product SearchString(string userInput);
     }
+
 }
