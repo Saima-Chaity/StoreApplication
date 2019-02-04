@@ -105,5 +105,27 @@ namespace StoreApplication.Repositories
 
             return product;
         }
+        public Product SaveProductToSql(Product product)
+        {
+            Product newProduct = new Product();
+
+            newProduct.ProductName = product.ProductName;
+
+            newProduct.Price = product.Price;
+
+            db.Product.Add(newProduct);
+            db.SaveChanges();
+
+            return newProduct;
+        }
+
+        public Product SearchString(string userInput)
+        {
+            var query = (from p in db.Product
+                         where (p.ProductName.StartsWith(userInput))
+                         select p).FirstOrDefault();
+
+            return query;
+        }
     }
 }

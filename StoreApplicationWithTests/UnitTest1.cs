@@ -69,6 +69,85 @@ namespace PassionProjectWithTest
                 Assert.Equal(expected, model.ProductName);
             }
         }
+        [Fact]
+        public static void UnitTestProductList()
+        {
+            var mockProductRepo = new Mock<IProductRepository>();
+
+            mockProductRepo.Setup(mpr => mpr.ProductList())
+                .Returns(new List<Product>{
+                    new Product(), new Product(), new Product(),
+                    new Product(), new Product(), new Product()
+                });
+
+            var controller = new TestController(mockProductRepo.Object);
+
+            var result = Assert.IsType<ViewResult>(controller.ProductCount());
+
+            var model = Assert.IsType<List<Product>>(result.Model);
+
+            int expected = 6;
+            int actual = model.Count;
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public static void UnitTestProductDetails()
+        {
+            var mockProductRepo = new Mock<IProductRepository>();
+
+            mockProductRepo.Setup(mpr => mpr.ProductDetails(It.IsAny<int>()))
+                .Returns(new Product { ProductId = 1, ProductName = "Olay Complete Moisturizer with SPF 15, 177 mL" });
+
+            var controller = new TestController(mockProductRepo.Object);
+
+            var result = Assert.IsType<ViewResult>(controller.ExpectedProductName(1));
+
+            var model = Assert.IsType<Product>(result.Model);
+
+            string expected = "Olay Complete Moisturizer with SPF 15, 177 mL";
+            string actual = model.ProductName;
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public static void UnitTestSaveProduct()
+        {
+            var mockProductRepo = new Mock<IProductRepository>();
+
+            Product product = new Product();
+            mockProductRepo.Setup(mpr => mpr.SaveProductToSql(It.IsAny<Product>()))
+                .Returns(new Product { ProductId = 1, ProductName = "Olay Complete Moisturizer with SPF 15, 177 mL" });
+
+            var controller = new TestController(mockProductRepo.Object);
+
+            var result = Assert.IsType<ViewResult>(controller.SaveDataToSQL(product));
+
+            var model = Assert.IsType<Product>(result.Model);
+
+            string expectedName = "Olay Complete Moisturizer with SPF 15, 177 mL";
+            string actualName = model.ProductName;
+            Assert.Equal(expectedName, actualName);
+        }
+
+        [Fact]
+        public static void UnitTestSearchProduct()
+        {
+            var mockProductRepo = new Mock<IProductRepository>();
+
+            mockProductRepo.Setup(mpr => mpr.SearchString(It.IsAny<string>()))
+                .Returns(new Product { ProductName = "Aveeno" });
+
+            var controller = new TestController(mockProductRepo.Object);
+
+            var result = Assert.IsType<ViewResult>(controller.SearchProduct("a"));
+
+            var model = Assert.IsType<Product>(result.Model);
+
+            string expectedName = "Aveeno";
+            string actualName = model.ProductName;
+            Assert.Equal(expectedName, actualName);
+        }
 
     }
 }

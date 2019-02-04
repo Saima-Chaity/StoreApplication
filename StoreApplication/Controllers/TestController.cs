@@ -35,5 +35,32 @@ namespace StoreApplication.Controllers
         {
             return View(db.Product.Where(p => p.ProductId == id).FirstOrDefault());
         }
+
+        //Unit Test
+        public IActionResult ProductCount()
+        {
+            var products = productRepository.ProductList();
+            return View(products);
+        }
+
+        public IActionResult ExpectedProductName(int id)
+        {
+            var products = productRepository.ProductDetails(id);
+            return View(products);
+        }
+
+        public IActionResult SaveDataToSQL(Product product)
+        {
+            var query = productRepository.SaveProductToSql(product);
+
+            return View(query);
+        }
+
+        public IActionResult SearchProduct(string userInput)
+        {
+            var query = productRepository.SearchString(userInput);
+
+            return View(query);
+        }
     }
 }
