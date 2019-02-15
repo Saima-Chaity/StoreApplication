@@ -88,8 +88,13 @@ namespace StoreApplication.Controllers
 
         public IActionResult Delete(int? id)
         {
+            CookieHelper cookieHelper = new CookieHelper(_httpContextAccessor, Request,
+                                             Response);
+
+            userID = cookieHelper.Get("UserID");
+
             var query = (from p in db.UserCart
-                         where p.ProductId == id
+                         where p.ProductId == id && p.Id == userID
                          select p).FirstOrDefault();
 
             if (query != null)
@@ -99,6 +104,9 @@ namespace StoreApplication.Controllers
             }
 
             return View(query);
+
+
+
         }
     }
 }
