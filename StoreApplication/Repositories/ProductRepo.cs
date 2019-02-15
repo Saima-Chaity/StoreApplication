@@ -91,7 +91,7 @@ namespace StoreApplication.Repositories
             return newProduct;
         }
 
-        public Product UpdateProduct(int productId, string productName, decimal price)
+        public Product UpdateProduct(int productId, string productName, string productImage, decimal price)
         {
 
             Product product = (from p in db.Product
@@ -101,7 +101,13 @@ namespace StoreApplication.Repositories
 
             if (product != null)
             {
+                string imagePath = @"C:\" + productImage;
+
+                byte[] imageBytes = System.IO.File.ReadAllBytes(imagePath);
+                string base64String = Convert.ToBase64String(imageBytes);
+
                 product.ProductName = productName;
+                product.ProductImage = Convert.FromBase64String(base64String);
                 product.Price = price;
 
                 db.Product.Update(product);

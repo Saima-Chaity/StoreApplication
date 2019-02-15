@@ -69,25 +69,10 @@ namespace StoreApplication.Controllers
             return View(query);
         }
 
-        public IActionResult DeleteFromSQL(int productId)
-        {
-            Product product = (from p in db.Product
-                               where p.ProductId == productId
-                               select p).FirstOrDefault();
-
-            if (product != null)
-            {
-                db.Product.Remove(product);
-                db.SaveChanges();
-            }
-
-            return View(product);
-        }
-
-        public IActionResult UpdateAndSaveToSQL(int productId, string productName, decimal price)
+        public IActionResult UpdateAndSaveToSQL(int productId, string productName, string productImage, decimal price)
         {
 
-            var query = new ProductRepo(db).UpdateProduct(productId, productName, price);
+            var query = new ProductRepo(db).UpdateProduct(productId, productName, productImage, price);
             return View(query);
         }
     }
