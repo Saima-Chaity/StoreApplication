@@ -53,15 +53,6 @@ namespace StoreApplication.Controllers
             return View(db.Product.Where(p => p.ProductId == id).FirstOrDefault());
         }
 
-        public IActionResult Delete(int? id)
-        {
-            if (User.Identity.Name == null)
-            {
-                return Redirect("/Identity/Account/Login");
-            }
-            return View(db.Product.Where(p => p.ProductId == id).FirstOrDefault());
-        }
-
         public IActionResult SaveDataToSQL(string productName, string productImage, decimal price)
         {
             var query = new ProductRepo(db).SaveProduct(productName, productImage, price);

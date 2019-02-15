@@ -84,7 +84,7 @@ namespace StoreApplication.Controllers
 
             ViewData["CurrentSort"] = sort;
             ViewData["CurrentFilter"] = search;
-            int pageSize = 2;
+            int pageSize = 3;
 
             if (userSearchString != null)
             {
