@@ -62,9 +62,9 @@ namespace StoreApplication.Controllers
             return View(db.Product.Where(p => p.ProductId == id).FirstOrDefault());
         }
 
-        public IActionResult SaveDataToSQL(string productName, decimal price)
+        public IActionResult SaveDataToSQL(string productName, string productImage, decimal price)
         {
-            var query = new ProductRepo(db).SaveProduct(productName, price);
+            var query = new ProductRepo(db).SaveProduct(productName, productImage, price);
 
             return View(query);
         }
