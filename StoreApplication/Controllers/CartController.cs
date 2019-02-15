@@ -78,7 +78,12 @@ namespace StoreApplication.Controllers
             SignInUser();
 
             var query = new CartRepo(db).GetAllProductsFromCart(userID);
-            return View(query);
+            return View("AddToCart", query);
+        }
+
+        public IActionResult Details(int? id)
+        {
+            return View(db.Product.Where(p => p.ProductId == id).FirstOrDefault());
         }
 
         public IActionResult Delete(int? id)
