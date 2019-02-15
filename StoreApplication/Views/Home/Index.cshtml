@@ -97,8 +97,8 @@ else
                     @Html.DisplayFor(modelItem => item.ProductName)
                 </td>
                 <td>
-                    <img src="~/images/not-found.jpg" style="max-width:100px;max-height:100px" />
-                    @*<img src="@(ViewBag.Base64String = "data:image/jpg;base64," + Convert.ToBase64String(item.ProductImage, 0, item.ProductImage.Length))" style="max-width:100px;max-height:100px" />*@
+                    @*<img src="~/images/not-found.jpg" style="max-width:100px;max-height:100px" />*@
+                    <img src="@(ViewBag.Base64String = "data:image/jpg;base64," + Convert.ToBase64String(item.ProductImage, 0, item.ProductImage.Length))" style="max-width:100px;max-height:100px" />
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)

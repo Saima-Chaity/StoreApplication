@@ -72,12 +72,17 @@ namespace StoreApplication.Repositories
             }
         }
 
-        public Product SaveProduct(string productName, decimal price)
+        public Product SaveProduct(string productName, string productImage, decimal price)
         {
+            string imagePath = @"C:\" + productImage;
+
+            byte[] imageBytes = System.IO.File.ReadAllBytes(imagePath);
+            string base64String = Convert.ToBase64String(imageBytes);
+
             Product newProduct = new Product();
 
             newProduct.ProductName = productName;
-
+            newProduct.ProductImage = Convert.FromBase64String(base64String);
             newProduct.Price = price;
 
             db.Product.Add(newProduct);
