@@ -30,7 +30,7 @@
                             <div class="form-group">
                                 <label asp-for="ProductImage" class="control-label">Upload Image:</label>
                                 <input asp-for="ProductImage" type="file" value="ProductImage" class="form-control" required />
-                                <span asp-validation-for="ProductImage" class="text-success"></span>
+                                <span asp-validation-for="ProductImage" class="text-success">File path "C:\"</span>
                                 <img src="@(ViewBag.Base64String = "data:image/jpg;base64," + Convert.ToBase64String(Model.ProductImage, 0, Model.ProductImage.Length))" style="max-width:100px;max-height:100px; margin-top:10px;" />
 
                             </div>
