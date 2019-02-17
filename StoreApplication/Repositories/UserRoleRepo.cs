@@ -18,6 +18,19 @@ namespace StoreApplication.Repositories
             this.serviceProvider = serviceProvider;
         }
 
+        // Assign a role to a user.
+        public async Task<bool> AddUserRole(string email, string roleName)
+        {
+            var UserManager = serviceProvider
+                                .GetRequiredService<UserManager<ApplicationUser>>();
+            var user = await UserManager.FindByEmailAsync(email);
+            if (user != null)
+            {
+                await UserManager.AddToRoleAsync(user, roleName);
+            }
+            return true;
+        }
+
         // Get all roles of a specific user.
         public async Task<IEnumerable<RoleVM>> GetUserRoles(string email)
         {
