@@ -4,11 +4,6 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -19,15 +14,17 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { userName = item.Email })
+                @Html.ActionLink("View Roles", "Detail", new { userName = item.Email })
             </td>
         </tr>
 }
     </tbody>
 </table>
+
