@@ -47,6 +47,22 @@ namespace StoreApplication.Controllers
             return View();
         }
 
+        [HttpGet, ActionName("DeleteRole")]
+        public IActionResult DeleteRole(string id)
+        {
+            if (ModelState.IsValid)
+            {
+                RoleRepo roleRepo = new RoleRepo(_context);
+                var success = roleRepo.DeleteRole(id);
+                if (success)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            ViewBag.Error = "An error occurred while deleting this role. Please try again.";
+            return View();
+        }
+
     }
 
 }
