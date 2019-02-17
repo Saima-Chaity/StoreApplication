@@ -5,8 +5,12 @@ using StoreApplication.Models;
 using StoreApplication.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.Net;
+using System.Text;
 
 namespace StoreApplication.Repositories
 {
@@ -72,11 +76,13 @@ namespace StoreApplication.Repositories
             }
         }
 
+
         public Product SaveProduct(string productName, string productImage, decimal price)
         {
+
             string imagePath = @"C:\" + productImage;
 
-            byte[] imageBytes = System.IO.File.ReadAllBytes(imagePath);
+            byte[] imageBytes = System.IO.File.ReadAllBytes(productImage);
             string base64String = Convert.ToBase64String(imageBytes);
 
             Product newProduct = new Product();
@@ -90,6 +96,14 @@ namespace StoreApplication.Repositories
 
             return newProduct;
         }
+
+
+        //public static byte[] converterDemo(Image x)
+        //{
+        //    ImageConverter _imageConverter = new ImageConverter();
+        //    byte[] xByte = (byte[])_imageConverter.ConvertTo(x, typeof(byte[]));
+        //    return xByte;
+        //}
 
         public Product UpdateProduct(int productId, string productName, string productImage, decimal price)
         {

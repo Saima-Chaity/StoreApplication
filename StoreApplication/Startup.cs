@@ -48,12 +48,17 @@ namespace StoreApplication
             //    .AddEntityFrameworkStores<ApplicationDbContext>()
             //    .AddDefaultTokenProviders();
 
-            services.AddIdentity<IdentityUser, IdentityRole>(config =>
-            {
-                config.SignIn.RequireConfirmedEmail = true;
-            })
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+             .AddEntityFrameworkStores<ApplicationDbContext>()
+             .AddDefaultUI().AddDefaultTokenProviders();
+
+
+            //services.AddIdentity<IdentityUser, IdentityRole>(config =>
+            //{
+            //    config.SignIn.RequireConfirmedEmail = true;
+            //})
+            //    .AddEntityFrameworkStores<ApplicationDbContext>()
+            //    .AddDefaultTokenProviders();
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
