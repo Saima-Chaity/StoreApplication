@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StoreApplication.Data;
 
-namespace StoreApplication.Migrations.ApplicationDb
+namespace StoreApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190217034928_addedApplicationUser")]
-    partial class addedApplicationUser
+    [Migration("20190217050907_modifiedApplicationDB")]
+    partial class modifiedApplicationDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -17,16 +17,16 @@ namespace StoreApplication.Controllers
 
         public StoreDBContext db;
         public ApplicationDbContext userdb;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
         public string userID { get; set; }
         public IEnumerable<Product> productQuery { get; set; }
 
         public CartController(StoreDBContext db,
             IHttpContextAccessor httpContextAccessor,
-            SignInManager<IdentityUser> signInManager,
-            UserManager<IdentityUser> userManager)
+            SignInManager<ApplicationUser> signInManager,
+            UserManager<ApplicationUser> userManager)
         {
             this.db = db;
             this._httpContextAccessor = httpContextAccessor;

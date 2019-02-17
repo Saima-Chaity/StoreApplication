@@ -1,20 +1,21 @@
 ﻿@model IEnumerable<StoreApplication.ViewModels.RoleVM>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Detail";
 }
 
-<h2>Index</h2>
+<br />
 
+<h2>@ViewBag.UserName</h2>
 <p>
-    <a asp-action="Create">Create New</a>
+    @Html.ActionLink("Assign Roles", "Assign",
+                     new { userName = @ViewBag.UserName })
 </p>
+
+
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.RoleName)
             </th>
@@ -22,18 +23,18 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RoleName)
             </td>
+
             <td>
-                @Html.ActionLink("Delete Role", "DeleteRole", new { id = item.Id })
+                @Html.ActionLink("Delete User Role", "DeleteUserRole", new { email = @ViewBag.UserName, roleName = item.RoleName })
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>
+

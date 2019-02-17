@@ -55,6 +55,15 @@ namespace StoreApplication.Repositories
             _context.SaveChanges();
             return true;
         }
+
+        public bool DeleteRole(string id)
+        {
+            var role = _context.Roles.Where(r => r.Id == id).FirstOrDefault();
+
+            _context.Roles.Remove(role);
+            _context.SaveChanges();
+            return true;
+        }
     }
 
 }
