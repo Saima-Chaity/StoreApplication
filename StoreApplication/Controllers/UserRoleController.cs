@@ -84,6 +84,22 @@ namespace StoreApplication.Controllers
             }
         }
 
+        [HttpGet, ActionName("DeleteUserRole")]
+        public async Task<IActionResult> DeleteUserRole(string email, string roleName)
+        {
+            if (ModelState.IsValid)
+            {
+                UserRoleRepo userRoleRepo = new UserRoleRepo(_serviceProvider);
+                var success = await userRoleRepo.RemoveUserRole(email, roleName);
+                if (success)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            ViewBag.Error = "An error occurred while deleting this role. Please try again.";
+            return View();
+        }
+
     }
 
 }

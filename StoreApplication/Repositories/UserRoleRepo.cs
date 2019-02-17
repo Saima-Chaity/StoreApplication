@@ -31,6 +31,19 @@ namespace StoreApplication.Repositories
             return true;
         }
 
+        // Remove role from a user.
+        public async Task<bool> RemoveUserRole(string email, string roleName)
+        {
+            var UserManager = serviceProvider
+                                .GetRequiredService<UserManager<ApplicationUser>>();
+            var user = await UserManager.FindByEmailAsync(email);
+            if (user != null)
+            {
+                await UserManager.RemoveFromRoleAsync(user, roleName);
+            }
+            return true;
+        }
+
         // Get all roles of a specific user.
         public async Task<IEnumerable<RoleVM>> GetUserRoles(string email)
         {

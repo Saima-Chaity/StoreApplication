@@ -25,12 +25,15 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RoleName)
-                </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleName)
+            </td>
 
-            </tr>
+            <td>
+                @Html.ActionLink("Delete User Role", "DeleteUserRole", new { email = @ViewBag.UserName, roleName = item.RoleName })
+            </td>
+        </tr>
         }
     </tbody>
 </table>
