@@ -26,6 +26,15 @@ namespace StoreApplication.Repositories
             return users;
         }
 
+        public bool DeleteUser(string email)
+        {
+            var user = _context.Users.Where(u => u.Email == email).FirstOrDefault();
+
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+            return true;
+        }
+
     }
 
 }

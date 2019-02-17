@@ -100,6 +100,22 @@ namespace StoreApplication.Controllers
             return View();
         }
 
+        [HttpGet, ActionName("DeleteUser")]
+        public IActionResult DeleteUser(string email)
+        {
+            if (ModelState.IsValid)
+            {
+                UserRepo userRepo = new UserRepo(_context);
+                var success = userRepo.DeleteUser(email);
+                if (success)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            ViewBag.Error = "An error occurred while deleting this user. Please try again.";
+            return View();
+        }
+
     }
 
 }
