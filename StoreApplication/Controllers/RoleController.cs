@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StoreApplication.Data;
 using StoreApplication.Repositories;
@@ -9,6 +10,7 @@ using StoreApplication.ViewModels;
 
 namespace StoreApplication.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
         ApplicationDbContext _context;

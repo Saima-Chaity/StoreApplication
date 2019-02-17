@@ -82,7 +82,7 @@ namespace StoreApplication.Repositories
 
             string imagePath = @"C:\" + productImage;
 
-            byte[] imageBytes = System.IO.File.ReadAllBytes(productImage);
+            byte[] imageBytes = System.IO.File.ReadAllBytes(imagePath);
             string base64String = Convert.ToBase64String(imageBytes);
 
             Product newProduct = new Product();
@@ -96,14 +96,6 @@ namespace StoreApplication.Repositories
 
             return newProduct;
         }
-
-
-        //public static byte[] converterDemo(Image x)
-        //{
-        //    ImageConverter _imageConverter = new ImageConverter();
-        //    byte[] xByte = (byte[])_imageConverter.ConvertTo(x, typeof(byte[]));
-        //    return xByte;
-        //}
 
         public Product UpdateProduct(int productId, string productName, string productImage, decimal price)
         {
