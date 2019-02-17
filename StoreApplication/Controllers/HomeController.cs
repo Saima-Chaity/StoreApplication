@@ -19,14 +19,14 @@ namespace StoreApplication.Controllers
     {
         public StoreDBContext db;
         public ApplicationDbContext userdb;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public HomeController(StoreDBContext db,
             IHttpContextAccessor httpContextAccessor,
-            SignInManager<IdentityUser> signInManager,
-            UserManager<IdentityUser> userManager)
+            SignInManager<ApplicationUser> signInManager,
+            UserManager<ApplicationUser> userManager)
         {
             this.db = db;
             this._httpContextAccessor = httpContextAccessor;
