@@ -12,4 +12,4 @@ An application which will help people to create their own store and sell their p
 
 - Customer will be able to sort the product by product name or price
 
-### Demo : [Project Link](https://passionproject20190130072631.azurewebsites.net/)
+### Demo : [Project Link](https://storeapplicationmvc.azurewebsites.net/)
