@@ -7,16 +7,15 @@
 
 @*Search*@
 
-<form asp-action="Index" method="post" style="margin : 20px 0px;">
-    <div class="form-actions no-color">
-        <p>
-            <strong>Search:</strong>
-            <input type="text" name="searchString" value="@ViewData["CurrentFilter"]"
-                   placeholder="Product Name..." style="width: 80%; border-radius:5px;" />
-            <input type="submit" value="Search" class="btn btn-default" />
-        </p>
+<form role="search" asp-action="Index" method="post" style="margin : 20px 0px;">
+    <div class="input-group add-on">
+        <input class="form-control" name="searchString" value="@ViewData["CurrentFilter"]" placeholder="Search by product name..." type="text">
+        <div class="input-group-btn">
+            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
     </div>
 </form>
+
 
 @*Sort*@
 
@@ -64,57 +63,29 @@ else
     }
 </script>
 
-<p>
-    <a asp-controller="Product" asp-action="Create">Create New</a>
-</p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th></th>
+@foreach (var item in Model)
+{
+    <div class="row" style="display: inline-block; margin: 5px 20px;">
+        <div class="col-xs-4">
+            <div class="thumbnail" style="width: 25rem;">
+                <img src="@(ViewBag.Base64String = "data:image/jpg;base64," + Convert.ToBase64String(item.ProductImage, 0, item.ProductImage.Length))" style="max-width:150px;max-height:150px" alt="Product Image">
+                <div class="card-body" style="border-top:2px solid dodgerblue; margin-top: 10px;">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.ProductName)</h5>
+                    <p class="card-text">$@Html.DisplayFor(modelItem => item.Price)</p>
+                    <br />
+                    <a class="btn btn-primary" asp-controller="Cart" asp-action="AddToCart" asp-route-id="@item.ProductId">Add To Cart</a> |
+                    <a class="btn btn-primary" asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId">Details</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a class="btn btn-primary" asp-controller="Product" asp-action="Edit" asp-route-id="@item.ProductId">Edit</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <th>
-                <a asp-action="Index" asp-route-searchString="@ViewData["CurrentFilter"]" asp-route-sortOrder=@ViewData["SortTitle"]>ProductName</a>
-            </th>
-
-            <th>
-                @Html.DisplayName("ProductImage")
-            </th>
-
-            <th>
-                <a asp-action="Index" asp-route-sortOrder=@ViewData["SortPrice"]> Price</a>
-            </th>
-
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td></td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
-                <td>
-                    <img src="@(ViewBag.Base64String = "data:image/jpg;base64," + Convert.ToBase64String(item.ProductImage, 0, item.ProductImage.Length))" style="max-width:100px;max-height:100px" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@item.ProductId">Cart</a> |
-                    <a asp-controller="Product" asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                    <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId">Details</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-@*Clear Cookies*@
-
-@Html.ActionLink("Clear Search Result", "ClearCookie", "Home", new { key = "searchString" })
+}
 
 
 @*Pagination*@
@@ -123,19 +94,80 @@ else
     var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 }
-<div style="float: right;">
-    <a asp-action="Index"
-       asp-route-sortOrder="@ViewData["CurrentSort"]"
-       asp-route-page="@(Model.PageIndex - 1)"
-       asp-route-searchString="@ViewData["CurrentFilter"]"
-       class="btn btn-default @prevDisabled">
-        Previous
-    </a>
-    <a asp-action="Index"
-       asp-route-sortOrder="@ViewData["CurrentSort"]"
-       asp-route-page="@(Model.PageIndex + 1)"
-       asp-route-searchString="@ViewData["CurrentFilter"]"
-       class="btn btn-default @nextDisabled">
-        Next
-    </a>
+<div style="clear: left;">
+    <div style="float: right;">
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-page="@(Model.PageIndex - 1)"
+           asp-route-searchString="@ViewData["CurrentFilter"]"
+           class="btn btn-default @prevDisabled">
+            Previous
+        </a>
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-page="@(Model.PageIndex + 1)"
+           asp-route-searchString="@ViewData["CurrentFilter"]"
+           class="btn btn-default @nextDisabled">
+            Next
+        </a>
+    </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+@*<table class="table">
+        <thead>
+            <tr>
+                <th></th>
+
+                <th>
+                    <a asp-action="Index" asp-route-searchString="@ViewData["CurrentFilter"]" asp-route-sortOrder=@ViewData["SortTitle"]>ProductName</a>
+                </th>
+
+                <th>
+                    @Html.DisplayName("ProductImage")
+                </th>
+
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder=@ViewData["SortPrice"]> Price</a>
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td></td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        <img src="@(ViewBag.Base64String = "data:image/jpg;base64," + Convert.ToBase64String(item.ProductImage, 0, item.ProductImage.Length))" style="max-width:100px;max-height:100px" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@item.ProductId">Cart</a> |
+                        <a asp-controller="Product" asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                        <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
+
+@*Clear Cookies*@
+
+@*@Html.ActionLink("Clear Search Result", "ClearCookie", "Home", new { key = "searchString" })*@
+
+
