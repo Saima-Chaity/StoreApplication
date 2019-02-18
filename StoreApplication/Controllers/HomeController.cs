@@ -34,19 +34,8 @@ namespace StoreApplication.Controllers
             this._signInManager = signInManager;
         }
 
-        [HttpPost]
-        public ActionResult Index(UserSearch userSearch)
-        {
-            CookieHelper cookieHelper = new CookieHelper(_httpContextAccessor, Request,
-                                                         Response);
-
-            cookieHelper.Set("searchString", userSearch.searchString, 1);
-
-            return RedirectToAction("Index");
-        }
-
         [HttpGet]
-        public IActionResult Index(string sortOrder, string searchString, int? page, UserSearch userSearch)
+        public IActionResult Index(string sortOrder, UserSearch userSearch, int? page)
         {
             CookieHelper cookieHelper = new CookieHelper(_httpContextAccessor, Request,
                                                          Response);
@@ -77,29 +66,15 @@ namespace StoreApplication.Controllers
                 }
             }
 
-            string userSearchString = cookieHelper.Get("searchString");
-
             string sort = String.IsNullOrEmpty(sortOrder) ? "title_asc" : sortOrder;
-            string search = String.IsNullOrEmpty(searchString) ? "" : searchString;
+            string search = String.IsNullOrEmpty(userSearch.searchString) ? "" : userSearch.searchString;
 
             ViewData["CurrentSort"] = sort;
             ViewData["CurrentFilter"] = search;
             int pageSize = 3;
 
-            if (userSearchString != null)
-            {
-                ViewBag.searchString = userSearchString;
-
-                var queryWithUserSearchString = new ProductRepo(db).GetAll(sort, userSearchString);
-
-                return View(PaginatedList<Product>.Create(queryWithUserSearchString, page ?? 1, pageSize));
-            }
-
-            else
-            {
-                var query = new ProductRepo(db).GetAll(sort, search);
-                return View(PaginatedList<Product>.Create(query, page ?? 1, pageSize));
-            }
+            var query = new ProductRepo(db).GetAll(sort, userSearch);
+            return View(PaginatedList<Product>.Create(query, page ?? 1, pageSize));
         }
 
         public IActionResult ClearCookie(string key)

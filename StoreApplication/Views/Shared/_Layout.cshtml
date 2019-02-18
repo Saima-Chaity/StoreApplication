@@ -35,17 +35,18 @@
 
                     @if (User.IsInRole("Admin"))
                     {
-                        <li><a asp-area="" asp-controller="Role" asp-action="Index">Roles</a></li>
+                    <li><a asp-controller="Product" asp-action="Create">Create New</a></li>
+                    }
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                    <li><a asp-area="" asp-controller="Role" asp-action="Index">Roles</a></li>
                     }
                     @if (User.IsInRole("Admin"))
                     {
-                        <li>
-                            <a asp-area="" asp-controller="UserRole" asp-action="Index">
-                                User-Roles
-                            </a>
-                        </li>
+                        <li><a asp-area="" asp-controller="UserRole" asp-action="Index">User-Roles</a></li>
                     }
-                </ul>
+                        </ul>
                 <partial name="_LoginPartial" />
             </div>
         </div>
