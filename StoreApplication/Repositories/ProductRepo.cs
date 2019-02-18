@@ -35,14 +35,14 @@ namespace StoreApplication.Repositories
             return (db.Product.Where(p => p.ProductId == id).FirstOrDefault());
         }
 
-        public IQueryable<Product> GetAll(string sortOrder, string searchString)
+        public IQueryable<Product> GetAll(string sortOrder, UserSearch userSearch)
         {
 
-            if (!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(userSearch.searchString))
             {
 
                 var query = from p in db.Product
-                            where (p.ProductName.StartsWith(searchString))
+                            where (p.ProductName.Contains(userSearch.searchString))
                             select p;
 
                 return query;
