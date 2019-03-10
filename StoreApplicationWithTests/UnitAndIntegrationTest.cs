@@ -34,7 +34,7 @@ namespace PassionProjectWithTest
 
         public static DbContextOptions<StoreDBContext> DbContextOptions { get; }
 
-
+        //Integration Test
         [Fact]
         public static void IndexViewHas5Products()
         {
@@ -69,6 +69,8 @@ namespace PassionProjectWithTest
                 Assert.Equal(expected, model.ProductName);
             }
         }
+
+        //Unit Test
         [Fact]
         public static void UnitTestProductList()
         {
@@ -140,7 +142,7 @@ namespace PassionProjectWithTest
 
             var controller = new TestController(mockProductRepo.Object);
 
-            var result = Assert.IsType<ViewResult>(controller.SearchProduct("a"));
+            var result = Assert.IsType<ViewResult>(controller.SearchProduct("Aveeno"));
 
             var model = Assert.IsType<Product>(result.Model);
 
