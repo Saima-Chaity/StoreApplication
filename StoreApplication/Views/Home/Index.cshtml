@@ -40,7 +40,7 @@ else
         Sort By
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"  style="font-weight:bold; padding: 10px 30px 10px 10px">
-        <a class="dropdown-item" asp-action="Index" asp-route-searchString="@ViewData["CurrentFilter"]" asp-route-sortOrder=@ViewData["SortTitle"]>Product-Name</a>
+        <a class="dropdown-item" asp-action="Index" asp-route-sortOrder=@ViewData["SortTitle"]>Product-Name</a>
         <a class="dropdown-item" asp-action="Index" asp-route-sortOrder=@ViewData["SortPrice"]> Price</a>
     </div>
 </div>
