@@ -26,7 +26,7 @@ namespace StoreApplication.Controllers
 
         public IActionResult Index()
         {
-            var query = new ProductRepo(db).ProductList();
+            var query = new ProductRepoTest(db).ProductList();
 
             return View(db.Product);
         }
