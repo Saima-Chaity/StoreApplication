@@ -2,8 +2,6 @@
 
 An application which will help people to create their own store and sell their product.
 
-### Demo : [Project Link](https://storeapplicationmvc.azurewebsites.net/)
-
 ### Features :
 
 - Individual login and sign up
