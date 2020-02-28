@@ -4,11 +4,12 @@ An application which will help people to create their own store and sell their p
 
 ### Features :
 
-- Individual login and sign up
+- Individual login, sign up, implemented cookies and session storage to store logged-in user information.
 
-- Search, pagination and cart features.
+- Features include product list with pagination, search, sort, shopping cart, user registration and login.
 
-- Admin access to maintain the application.
+- Gained knowledge on web security and implemented role to grant limited access on the application.
+
 
 ### Screenshot :
 **Landing  Page :**
